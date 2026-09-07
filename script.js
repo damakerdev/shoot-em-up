@@ -2,6 +2,43 @@
     if(window.shootEmUpRunning) return;
     window.shootEmUpRunning=true;
 
+    let score=0;
+    let elemDestroyed=0;
+    let playerHp=100;
+
+    const hud = document.createElement('div');
+    hud.id = 'shootemup-hud';
+    hud.style.cssText = `
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000000;
+    font-family: 'Courier New', monospace, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px 14px;
+    border: 2px solid #ff8400;
+    border-radius: 8px;
+    z-index: 999999;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1.5;
+    `;
+
+    document.body.appendChild(hud);
+
+    function displayHUD(){
+        hud.innerHTML=`
+        <div style="color: #000000; margin-bottom: 4px;">shooot 'em up</div>
+    <div>SCORE: <span style="color:#000;">${score}</span></div>
+    <div>DESTROYED: <span style="color:#000;">${elemDestroyed}</span></div>
+    <div>HEALTH: <span style="color:${playerHp < 30 ? '#991414' : '#0c780c'};">${playerHp}%</span></div>
+        `;
+    }
+
+    displayHUD();
+    
     const style=document.createElement('style');
     style.innerHTML=`
     * { cursor: crosshair!important;}
