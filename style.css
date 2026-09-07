@@ -67,7 +67,6 @@ a[href^="javascript"]:hover {
     background: #34d399;
 }
 
-/* Playground Interactive Elements */
 button, input[type="text"] {
     font-family: inherit;
     padding: 8px 14px;
@@ -122,4 +121,31 @@ input[type="text"] {
     border-color: var(--accent-green);
     color: var(--text-main);
     transform: translateY(-2px);
+}
+
+.github-ribbon {
+    position: fixed;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    top: 46px;
+    right:-52px;
+    transform: rotate(45deg);
+    background-color: #facc15; 
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 55px;
+    z-index: 9999;
+    cursor: pointer;
+    border: 2px dashed #000000;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.github-ribbon:hover {
+    background-color: #fde047; 
+    transform: rotate(45deg) scale(1.08);
 }
