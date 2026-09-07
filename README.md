@@ -24,7 +24,7 @@
 3. Copy the following JavaScript snippet and paste it as the **URL / Location** of the bookmark:
 
 ```javascript
-javascript:(function(){let script=document.createElement('script');script.src='https://damakerdev.github.io/shoot-em-up/shootemup.js';document.body.appendChild(script);})();
+javascript:(function(){let script=document.createElement('script');script.src='https://damakerdev.github.io/shoot-em-up/shootemup.min.js';document.body.appendChild(script);})();
 ```
 ## how to play
 
