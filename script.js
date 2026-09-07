@@ -141,6 +141,11 @@
             currTarget.style.transform = 'scale(1.15)';
             currTarget.style.opacity = '0';
 
+            const maxHp=parseFloat(currTarget.dataset.healthMax)||50;
+            score+=maxHp*10;
+            elemDestroyed+=1;
+            displayHUD();
+
             const todelete = currTarget;
             currTarget = null;
 
@@ -198,12 +203,14 @@
             b.y+= b.vy;
             b.element.style.left =`${b.x}px`;
             b.element.style.top = `${b.y}px`;
-            const distToCursor = Math.hypot(b.x - mouseX, b.y - mouseY);
-            if (distToCursor < 12) {
+            const cursorDist = Math.hypot(b.x - mouseX, b.y - mouseY);
+            if (cursorDist< 12) {
                 document.body.style.backgroundColor='#550000';
                 setTimeout(() => {
                     document.body.style.backgroundColor=''
                 }, 100);
+                playerHp=Math.max(0,playerHp-10);
+                displayHUD();
                 b.element.remove();
                 activeBullets.splice(i,1);
                 continue;
