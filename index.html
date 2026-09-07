@@ -3,13 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shoot 'Em Up</title>
+    <title>Shoot 'Em Up Bookmarklet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%2310b981' d='M256 0c14.1 0 25.6 11.5 25.6 25.6V65c82.2 10.3 147 75.1 157.3 157.3h39.5c14.1 0 25.6 11.5 25.6 25.6s-11.5 25.6-25.6 25.6h-39.5c-10.3 82.2-75.1 147-157.3 157.3v39.5c0 14.1-11.5 25.6-25.6 25.6s-25.6-11.5-25.6-25.6v-39.5c-82.2-10.3-147-75.1-157.3-157.3H25.6C11.5 273.1 0 261.6 0 247.5s11.5-25.6 25.6-25.6h39.5C75.4 140.1 140.2 75.3 222.4 65V25.6C222.4 11.5 233.9 0 248 0h8zm0 115.2c-73.3 0-132.8 59.5-132.8 132.8S182.7 380.8 256 380.8 388.8 321.3 388.8 248 329.3 115.2 256 115.2zm0 80a52.8 52.8 0 1 1 0 105.6 52.8 52.8 0 0 1 0-105.6z'/></svg>">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>shoot 'em up bookmarklet</h1>
-    <p>testing this</p>
-    <button>random button</button>
-    <input type="checkbox" name="hic" id="hi">
-    <script src="script.js"></script>
+    <h1><i class="fa-solid fa-crosshairs"></i> shoot 'em up</h1>
+    <p style="text-align: center; color: var(--text-muted);">turn any webpage into an element-destroying arcade mini-game.</p>
+    <h2><i class="fa-solid fa-download"></i> installation</h2>
+    <p>drag this link directly onto your browser's bookmarks bar:</p>
+    
+    <p style="text-align: center; margin: 25px 0;">
+        <a href="javascript:(function(){let script=document.createElement('script');script.src='https://damakerdev.github.io/shoot-em-up/shootemup.js';document.body.appendChild(script);})();">
+            🎯 shoot 'em up
+        </a>
+    </p>
+    <h2><i class="fa-solid fa-gamepad"></i> how to play</h2>
+    <ol>
+        <li>Show your Bookmarks Bar (<strong>Ctrl+Shift+B</strong> or <strong>Cmd+Shift+B</strong>).</li>
+        <li>Drag the <strong>🎯 shoot 'em up</strong> link into your bookmarks bar.</li>
+        <li>Visit any website and click the bookmarklet to start.</li>
+        <li><strong>Aim:</strong> Hover over elements to target them.</li>
+        <li><strong>Shoot:</strong> Left-click to fire.</li>
+        <li><strong>Dodge:</strong> Avoid red incoming bullets fired by active elements!</li>
+    </ol>
+    <h2><i class="fa-solid fa-skull"></i> shooter enemies</h2>
+    <p>Every 1.5 seconds, a random element from the elements given below fires red bullets at your cursor:</p>
+    <ul>
+        <li><code>&lt;button&gt;</code> (Buttons)</li>
+        <li><code>&lt;img&gt;</code> (Images)</li>
+        <li><code>&lt;input&gt;</code> (Form Inputs)</li>
+        <li><code>&lt;video&gt;</code> (Videos)</li>
+        <li><code>&lt;canvas&gt;</code> (Canvas Elements)</li>
+    </ul>
+
+    <h3>destructible elements & HP</h3>
+    <ul>
+        <li><strong>100 HP:</strong> <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;button&gt;</code></li>
+        <li><strong>50 HP:</strong> <code>&lt;video&gt;</code>, <code>&lt;canvas&gt;</code></li>
+        <li><strong>20 HP:</strong> <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;input&gt;</code></li>
+    </ul>
+
+    <h3>immune elements</h3>
+    <p>These elements cannot be shot or target you:</p>
+    <ul>
+        <li>Game HUD & Target HP bar</li>
+        <li>Active Bullets</li>
+        <li>Game Over / Victory Modals</li>
+        <li>Main Page Containers (<code>&lt;body&gt;</code>, <code>&lt;html&gt;</code>)</li>
+    </ul>
+    <h2><i class="fa-solid fa-bullseye"></i> game practice playground</h2>
+    <p>Test the game mechanics right here on these live elements:</p>
+    <p style="color: var(--accent-red); font-weight: bold;">!! Add the button link to the bookmark bar and click on it for the game to start.</p>
+
+    <h3>Heading 3 Target (100 HP)</h3>
+    <p>Paragraph Target (20 HP)</p>
+    
+    <button><i class="fa-solid fa-bomb"></i> Example Button (100 HP)</button><br>
+    <input type="text" value="Input Field (20 HP)">
+
+    <ul>
+        <li>List Item Target 1 (20 HP)</li>
+        <li>List Item Target 2 (20 HP)</li>
+    </ul>
+    <div class="footer">
+        <a href="https://github.com/damakerdev" target="_blank" class="creator-badge">
+            Made with <i class="fa-solid fa-heart"></i> by <strong>damakerdev</strong>
+            <i class="fa-brands fa-github"></i>
+        </a>
+    </div>
+
 </body>
 </html>
