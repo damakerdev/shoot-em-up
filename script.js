@@ -5,6 +5,7 @@
     let score=0;
     let elemDestroyed=0;
     let playerHp=100;
+    let isGameOver=false;
 
     const hud = document.createElement('div');
     hud.id = 'shootemup-hud';
@@ -102,9 +103,9 @@
     let currTarget=null;
     const damagePerShot=25;
     document.addEventListener('mouseover',(e)=>{
-        if(playerHp<=0) return;
+        if(isGameOver||playerHp<=0) return;
         const target=e.target;
-        if(target===document.body||target===document.documentElement||target.id?.startsWith('shootempup'|| target.classList?.contains('shootemup-bullet'))){
+        if(target===document.body||target===document.documentElement||target.id?.startsWith('shootemup'|| target.classList?.contains('shootemup-bullet'))){
             currTarget=null;
             healthbar.style.display='none';
             return;
@@ -126,8 +127,81 @@
         }
     })
 
+    function getValidTargets(){
+        return Array.from(document.querySelectorAll('h1,h2,h3,img,button,p,span,a,li,input,video,canvas')
+        ).filter(
+                elem=>
+                    !elem.id?.startsWith('shootemup') && 
+                    !elem.classList?.contains('shootemup-bullet') &&
+                    !hud.contains(elem) &&
+                    !healthbar.contains(elem)
+        );
+    }
+
+    function gameWon(){
+        if(isGameOver) return;
+        isGameOver=true;
+        if(document.getElementById('shootemup-gamewon')) return;
+        const modal=document.createElement('div');
+        modal.id='shootemup-gamewon';
+        modal.style.cssText=`
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            background: rgba(4, 54, 1, 0.95);
+            color:#ff3333;
+            padding: 40px 60px;
+            font-family: 'Courier New',monospace,sans-serif;
+            opacity:0;
+            z-index:9999999;
+        `;
+        modal.innerHTML = `
+        <h1 style="font-size: 42px; margin: 0 0 10px 0; color: #09ff00;">
+            :D YOU WIN
+        </h1>
+        <p style="font-size: 18px; color: #c4ffaa; margin-bottom: 20px;">
+            All webpage elements destroyed!
+        </p>
+        <div style="font-size: 16px; color: #fff; margin-bottom: 25px; line-height: 1.6;">
+            <strong>FINAL SCORE:</strong> ${score}<br>
+            <strong>ELEMENTS DESTROYED:</strong> ${elemDestroyed}
+        </div>
+        <button id="shootemup-restart-btn" style="
+            background: #25cd3b;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: inherit;
+            border-radius: 8px;
+        ">
+            PLAY AGAIN :)
+        </button>
+        `;
+
+        document.body.appendChild(modal);
+        requestAnimationFrame(() => {
+            modal.style.opacity = '1';
+        });
+        document.getElementById('shootemup-restart-btn').addEventListener('click',()=>{
+            window.location.reload();
+        })
+    }
+
+    function checkWinCondition() {
+        const remainingTargets = getValidTargets();
+        if (remainingTargets.length === 0) {
+            gameWon();
+        }
+    }
+
+
+
+
     document.addEventListener('click',(e)=>{
-        if(playerHp<=0) return;
+        if(isGameOver||playerHp<=0) return;
         if(!currTarget) return;
         e.preventDefault();
         e.stopPropagation();
@@ -155,7 +229,8 @@
             currTarget = null;
 
             setTimeout(() => {
-                todelete.remove()
+                todelete.remove();
+                checkWinCondition();
             }, 150);
         } else {
             updateHealthBar(currTarget);
@@ -163,6 +238,8 @@
     },true);
 
     function gameOver(){
+        if(isGameOver) return;
+        isGameOver=true;
         if(document.getElementById('shootemup-gameover')) return;
         const modal=document.createElement('div');
         modal.id='shootemup-gameover';
@@ -171,7 +248,7 @@
             top:50%;
             left:50%;
             transform: translate(-50%,-50%);
-            background: rgba(20,5,5,0.95);
+            background: rgba(20, 13, 13, 0.95);
             color:#ff3333;
             padding: 40px 60px;
             font-family: 'Courier New',monospace,sans-serif;
@@ -214,6 +291,7 @@
 
     }
 
+    
     function enemyShoot(enemyElem){
         if(!enemyElem||!enemyElem.getBoundingClientRect) return;
         const rect=enemyElem.getBoundingClientRect();
@@ -260,6 +338,7 @@
     }
 
     function gameloop(){
+        if(isGameOver) return;
         for(let i = activeBullets.length-1;i>=0;i--){
             const b=activeBullets[i];
 
@@ -296,17 +375,10 @@
     requestAnimationFrame(gameloop);
 
     setInterval(() => {
-        const killers = document.querySelectorAll('img,button');
+        if(isGameOver||playerHp<=0) return;
+        const killers = document.querySelectorAll('img,button,canvas,video,input');
         if(killers.length===0) return;
         const randomKiller= killers[Math.floor(Math.random()*killers.length)];
         enemyShoot(randomKiller);
     }, 1500);
 })();
-
-
-
-
-
-
-
-
