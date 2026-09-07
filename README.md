@@ -12,6 +12,8 @@
 
 **shoot 'em up** is a javascript bookmarklet, basically a script which turns any website into an arcade game when activated, and cab be saved as a bookmark in the bookmarks tab. In this game, the user has to destroy each and every element in the page using their cursor (clicking page elements destroys them) and be safe from enemy elements which shoot bullets at them too.. pew pewwww boom!
 
+[SHOOT 'EM UP WEBSITE 👈](https://damakerdev.github.io/shoot-em-up/)
+
 [click here to learn more about bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet)
 
 
