@@ -24,6 +24,7 @@
     z-index: 999999;
     pointer-events: none;
     user-select: none;
+    min-width: 180px;
     line-height: 1.5;
     `;
 
@@ -37,8 +38,17 @@
         <div style="color: ${healthColor}; margin-bottom: 4px;font-weight: bold;">shooot 'em up</div>
     <div>SCORE: <span style="color:#000;">${score}</span></div>
     <div>DESTROYED: <span style="color:#000;">${elemDestroyed}</span></div>
-    <div>HEALTH: <span style="color:${healthColor};">${playerHp}%</span></div>
-        `;
+    <div style="margin-bottom:20px;">HEALTH: <span style="color:${healthColor};">${playerHp}%</span></div>
+    <div style="font-size:13px;"><b>CONTROLS:</b></div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #282d34; margin-bottom:20px;line-height: 1.4;">
+            <div><b>aim:</b>hover over elements</div>
+            <div><b>fire:</b>left-click</div>
+            <div><b>DANGER:</b>avoid red bullets</div>
+        </div>    
+    <div style="font-size:13px;"><b>OBJECTIVE:</b></div>
+    <div style="font-size:13px; color: #f30d0d;"><b>destroy all elements</b></div>
+
+    `;
     }
 
     displayHUD();
