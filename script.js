@@ -63,7 +63,7 @@
     const damagePerShot=25;
     document.addEventListener('mouseover',(e)=>{
         const target=e.target;
-        if(target===document.body||target===document.documentElement||target.id?.startsWith('shootempup')){
+        if(target===document.body||target===document.documentElement||target.id?.startsWith('shootempup'|| target.classList?.contains('shootemup-bullet'))){
             currTarget=null;
             healthbar.style.display='none';
             return;
@@ -80,7 +80,40 @@
     document.addEventListener('mousemove',(e)=>{
         mouseX=e.clientX;
         mouseY=e.clientY;
+        if(currTarget) {
+            updateHealthBar(currTarget);
+        }
     })
+
+    document.addEventListener('click',(e)=>{
+        if(!currTarget) return;
+        e.preventDefault();
+        e.stopPropagation();
+        let currHp = parseFloat(currTarget.dataset.health) - damagePerShot;
+        currTarget.dataset.health = currHp;
+        currTarget.classList.add('shootemup-hit');
+        setTimeout(() => {
+            if (currTarget) {
+                currTarget.classList.remove('shootemup-hit');
+            }
+        }, 100);
+
+        if(currHp<=0){
+            healthbar.style.display='none';
+            currTarget.style.transition = 'transform 0.15s ease, opacity 0.15s ease';
+            currTarget.style.transform = 'scale(1.15)';
+            currTarget.style.opacity = '0';
+
+            const todelete = currTarget;
+            currTarget = null;
+
+            setTimeout(() => {
+                todelete.remove()
+            }, 150);
+        } else {
+            updateHealthBar(currTarget);
+        }
+    },true);
 
     function enemyShoot(enemyElem){
         if(!enemyElem||!enemyElem.getBoundingClientRect) return;
@@ -120,7 +153,40 @@
         });
     }
 
-})
+    function gameloop(){
+        for(let i = activeBullets.length-1;i>=0;i--){
+            const b=activeBullets[i];
+
+            b.x +=b.vx;
+            b.y+= b.vy;
+            b.element.style.left =`${b.x}px`;
+            b.element.style.top = `${b.y}px`;
+            const distToCursor = Math.hypot(b.x - mouseX, b.y - mouseY);
+            if (distToCursor < 12) {
+                document.body.style.backgroundColor='#550000';
+                setTimeout(() => {
+                    document.body.style.backgroundColor=''
+                }, 100);
+                b.element.remove();
+                activeBullets.splice(i,1);
+                continue;
+            }
+            if(b.x<0||b.x>window.innerWidth || b.y<0||b.y>window.innerHeight){
+                b.element.remove();
+                activeBullets.splice(i,1);
+            }
+        }
+        requestAnimationFrame(gameloop);
+    }
+    requestAnimationFrame(gameloop);
+
+    setInterval(() => {
+        const killers = document.querySelectorAll('h1,h2,img,button,p');
+        if(killers.length===0) return;
+        const randomKiller= killers[Math.floor(Math.random()*killers.length)];
+        enemyShoot(randomKiller);
+    }, 1500);
+})();
 
 
 
