@@ -16,6 +16,9 @@
 
 [click here to learn more about bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet)
 
+<img width="1912" height="1044" alt="demo gif" src="https://github.com/user-attachments/assets/d74340fc-a168-4ed0-a959-0e50a85eacdf" />
+
+
 
 ---
 
