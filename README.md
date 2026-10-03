@@ -1,6 +1,6 @@
 # 🎯 shoot 'em up *bookmarklet*
 
-> Turn any webpage into an element destroying arcade mini-game!
+> turn any website into a shooter game!
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
@@ -16,23 +16,23 @@
 
 [click here to learn more about bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet)
 
-
+![gif demo](./img/demo.gif)
 ---
 
 ## 🚀 quick setup
 
-1. Display your browser's **Bookmarks Bar** (`Ctrl + Shift + B` or `Cmd + Shift + B`).
-2. Create a new bookmark in your bar with any name (e.g., `shoot 'em up`).
-3. Copy the following JavaScript snippet and paste it as the **URL / Location** of the bookmark:
+1. display your browser's **Bookmarks Bar** (`Ctrl + Shift + B` or `Cmd + Shift + B`).
+2. create a new bookmark in your bar with any name (e.g., `shoot 'em up`).
+3. copy the following JavaScript snippet and paste it as the **URL / Location** of the bookmark:
 
 ```javascript
 javascript:(function(){let script=document.createElement('script');script.src='https://damakerdev.github.io/shoot-em-up/shootemup.min.js';document.body.appendChild(script);})();
 ```
 ## how to play
 
-* **Aim:** Move your mouse pointer over page elements like a heading, button, etc.
-* **Shoot:** Left-click to fire lasers and attack the elements.
-* **Dodge:** Some elements like button, image, etc may fire bullets every now and then, avoid those bullets.
+* **Aim:** move your mouse pointer over page elements like a heading, button, etc.
+* **Shoot:** left click to fire lasers and attack the elements.
+* **Dodge:** some elements like button, image, etc shoot bullets, dodge them.
 
 
 ### HP values of elements
