@@ -15,7 +15,7 @@
     right: 15px;
     background: rgba(255, 255, 255, 0.9);
     color: #000000;
-    font-family: 'Courier New', monospace, sans-serif;
+    font-family: 'Courier New', sans-serif;
     font-size: 20px;
     font-weight: bold;
     padding: 10px 14px;
@@ -115,7 +115,7 @@
     document.addEventListener('mouseover',(e)=>{
         if(isGameOver||playerHp<=0) return;
         const target=e.target;
-        if(target===document.body||target===document.documentElement||target.id?.startsWith('shootemup'|| target.classList?.contains('shootemup-bullet'))){
+        if(target===document.body||target===document.documentElement||target.id?.startsWith('shootemup')||target.classList?.contains('shootemup-bullet')){
             currTarget=null;
             healthbar.style.display='none';
             return;
@@ -162,7 +162,7 @@
             background: rgba(4, 54, 1, 0.95);
             color:#ff3333;
             padding: 40px 60px;
-            font-family: 'Courier New',monospace,sans-serif;
+            font-family: 'Courier New',sans-serif;
             opacity:0;
             z-index:9999999;
         `;
@@ -192,9 +192,7 @@
         `;
 
         document.body.appendChild(modal);
-        requestAnimationFrame(() => {
-            modal.style.opacity = '1';
-        });
+        modal.style.opacity='1';
         document.getElementById('shootemup-restart-btn').addEventListener('click',()=>{
             window.location.reload();
         })
@@ -261,7 +259,7 @@
             background: rgba(20, 13, 13, 0.95);
             color:#ff3333;
             padding: 40px 60px;
-            font-family: 'Courier New',monospace,sans-serif;
+            font-family: 'Courier New',sans-serif;
             opacity:0;
             z-index:9999999;
         `;
@@ -291,17 +289,15 @@
         `;
 
         document.body.appendChild(modal);
-        requestAnimationFrame(() => {
-            modal.style.opacity = '1';
-        });
-
+        modal.style.opacity='1'
         document.getElementById('shootemup-retry-btn').addEventListener('click', () => {
             window.location.reload();
         });
 
     }
 
-    
+    const getDist=(dx,dy)=>Math.hypot(dx,dy)
+    const getDeg=(dx,dy)=>Math.atan2(dy,dx)*(180/Math.PI)    
     function enemyShoot(enemyElem){
         if(!enemyElem||!enemyElem.getBoundingClientRect) return;
         const rect=enemyElem.getBoundingClientRect();
@@ -309,16 +305,12 @@
         const startY=rect.top+rect.height/2;
         if(rect.bottom<0||rect.top > window.innerHeight) return;
 
-
-        const delX=mouseX-startX;
-        const delY=mouseY-startY;
-        const dist=Math.hypot(delX,delY);
+        const dx=mouseX-startX;
+        const dy=mouseY-startY;
+        const dist=getDist(dx,dy);
         if(dist===0) return;
-        const angleRad = Math.atan2(delY, delX);
-        const angleDeg = angleRad * (180 / Math.PI) + 90;
-        const speed=6;
-        const vx=(delX/dist)*speed;
-        const vy=(delY/dist)*speed;
+        const speed=6
+        const rotation=getDeg(dx,dy)+90
 
         const bullet=document.createElement('div');
         bullet.className='shootemup-bullet';
@@ -332,7 +324,7 @@
             z-index:999999;
             left:${startX}px;
             top:${startY}px;
-            transform: translate(-50%, -50%) rotate(${angleDeg}deg);
+            transform: translate(-50%, -50%) rotate(${rotation}deg);
         `;
         document.body.appendChild(bullet);
 
@@ -340,9 +332,9 @@
             element: bullet,
             x: startX,
             y:startY,
-            vx:vx,
-            vy:vy,
-            rotation: angleDeg
+            vx:(dx/dist)*speed,
+            vy:(dy/dist)*speed,
+            rotation
         });
 
     }
